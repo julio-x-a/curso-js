@@ -1,0 +1,64 @@
+.title {
+  text-align: center;
+  font-size: 90px;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --yellow-color: rgb(255, 252, 56);
+  --dark-color: rgb(44, 42, 42);
+  --rotate: rotate(180deg);
+}
+
+.card {
+  display: inline-block;
+  background-color: var(--dark-color);
+  color: var(--yellow-color);
+  margin: 30px;
+}
+
+.card figcaption {
+  padding: 1rem;
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.rotate-360 {
+  transform: var(--rotate);
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.sepia {
+  filter: sepia(1);
+}
+
+.dark-mode {
+  background-color: rgb(15, 13, 13);
+  color: #fff;
+}
+
+.eventos-flujo div {
+  padding: 4rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.uno {
+  background-color: yellow;
+}
+
+.dos {
+  background-color: rgb(201, 201, 37);
+}
+
+.tres {
+  background-color: rgb(122, 122, 20);
+}

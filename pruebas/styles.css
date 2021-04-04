@@ -1,0 +1,34 @@
+.title {
+  text-align: center;
+  font-size: 90px;
+}
+.card {
+    display: inline-block;
+    background-color: var(--dark-color);
+    color: var(--yellow-color);
+    margin: 30px;
+  }
+  
+  .card figcaption {
+    padding: 1rem;
+  }
+  
+  .rotate-45 {
+    transform: rotate(45deg);
+  }
+  
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+  
+  .opacity-80 {
+    opacity: 0.8;
+  }
+  
+  .sepia {
+    filter: sepia(1);
+  }
+  
+  .dark-mode {
+    background-color: rgb(15, 13, 13);
+    
