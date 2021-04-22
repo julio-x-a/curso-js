@@ -6,4 +6,5 @@ export default function userDeviceInfo(elementHtml) {
         if(userAgent.match(/chrome/i)) console.log(userAgent.match(/chrome/i));;
     });
     
+    //window.location.href = ""; <- Redireccionar
 }
