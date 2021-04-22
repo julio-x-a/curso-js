@@ -187,3 +187,18 @@ img {
   background-color: var(--second-color);
   color: var(--main-color);
 }
+
+/* <--- Network status ---> */
+
+.online,
+.offline {
+  padding: .5rem;
+  font-weight: bold;
+  text-align: center;
+  background-color: #1b5e20;
+  color: #fff;
+}
+
+.offline{
+  background-color: #b71c1c;
+}

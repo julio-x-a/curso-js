@@ -7,6 +7,8 @@ import { moveBall, shortcuts } from './teclado.js';
 import responsiveMedia from './responsive_js.js';
 import testResponsive from './responsive-tester.js';
 import userDeviceInfo from './user_agent.js'
+import networkStatus from './network_detection.js';
+import webCam from './webcam.js';
 
 const doc = document;
 
@@ -18,6 +20,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   responsiveMedia('youtube', '(min-width: 1024px)', 'Mobile', 'Desktop');
   testResponsive('responsive-tester');
   userDeviceInfo('#user-agent');
+  webCam('#webcam')
   // countdown('count');
 });
 
@@ -32,3 +35,4 @@ doc.addEventListener('scroll', (e) => {
 
 
 setTheme('.btn-dark');
+networkStatus('#conexion');
