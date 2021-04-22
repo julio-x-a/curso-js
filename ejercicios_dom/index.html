@@ -1,86 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.css"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-    <title>Document</title>
-  </head>
-  <body class="body">
-    <header class="header">
-      <h1>Ejercicios del DOM</h1>
-    </header>
-    <button
-      id="btn-panel"
-      class="panel-btn hamburger hamburger--vortex"
-      type="button"
-    >
-      <span class="hamburger-box">
-        <span class="hamburger-inner"></span>
-      </span>
-    </button>
 
-    <!------- BARRA DE NAVEGACIÓN  -------->
-    <aside class="panel">
-      <nav class="menu">
-        <a href="#section1">Reloj Digital</a>
-        <a href="#section2">Eventos del teclado</a>
-        <a href="#section3">Countdown</a>
-        <a href="#section4">Responsive con JS</a>
-        <a href="#section5">Responsive Tester</a>
-        <a href="#section6">Detección de dispositivos</a>
-        <a href="#section7">Responsive Tester</a>
-      </nav>
-    </aside>
-    <main>
-      <section id="section1" class="section">
-        <h1>Reloj Digital</h1>
-        <h1 class="clock" style="font-size: 4rem">⏲</h1>
-        <button id="init-clock">Iniciar reloj</button>
-        <button id="stop-clock">Detener reloj</button>
-        <button id="init-alarm">Iniciar alarma</button>
-        <button id="stop-alarm">Detener alarma</button>
-      </section>
-      <section id="section2" class="section">
-        <h1>Eventos del teclado</h1>
-        <article class="stage">
-          <div class="ball"></div>
-        </article>
-      </section>
-      <section id="section3" class="section">
-        <h1>Cuenta regresiva</h1>
-        <div id="count"></div>
-      </section>
-      <section id="section4" class="section">
-        <h1>Responsive Desing</h1>
-        <div id="youtube"></div>
-      </section>
-      <section id="section5" class="section">
-        <h1>Responsive Tester</h1>
-        <form id="responsive-tester" action="">
-          <input name="url" type="url" placeholder="URL" required />
-          <br />
-          <input name="width" type="number" placeholder="Ancho" required />
-          <br />
-          <input name="height" type="number" placeholder="Alto" required />
-          <br />
-          <input name="test" type="submit" value="test" />
-          <input name="close" type="button" value="close" />
-        </form>
-      </section>
-      <section id="section5" class="section">
-        <h1>Detección de dispositivos UserAgent</h1>
-        <p></p>
-      </section>
-    </main>
-    <button id="btn-scroll" class="btn-scroll">&#11014;</button>
-    <button id="btn-dark" class="btn-dark">🌚</button>
-    <!--------------- SCRIPTS --------------------->
-    <script src="js/index_dom.js" type="module"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <title>Document</title>
+</head>
+
+<body class="body">
+  <header class="header">
+    <h1>Ejercicios del DOM</h1>
+  </header>
+  <button id="btn-panel" class="panel-btn hamburger hamburger--vortex" type="button">
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+
+  <!------- BARRA DE NAVEGACIÓN  -------->
+  <aside class="panel">
+    <nav class="menu">
+      <a href="#section1">Reloj Digital</a>
+      <a href="#section2">Eventos del teclado</a>
+      <a href="#section3">Countdown</a>
+      <a href="#section4">Responsive con JS</a>
+      <a href="#section5">Responsive Tester</a>
+      <a href="#section6">Detección de dispositivos</a>
+      <a href="#section7">Responsive Tester</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="section1" class="section">
+      <h1>Reloj Digital</h1>
+      <h1 class="clock" style="font-size: 4rem">⏲</h1>
+      <button id="init-clock">Iniciar reloj</button>
+      <button id="stop-clock">Detener reloj</button>
+      <button id="init-alarm">Iniciar alarma</button>
+      <button id="stop-alarm">Detener alarma</button>
+    </section>
+    <section id="section2" class="section">
+      <h1>Eventos del teclado</h1>
+      <article class="stage">
+        <div class="ball"></div>
+      </article>
+    </section>
+    <section id="section3" class="section">
+      <h1>Cuenta regresiva</h1>
+      <div id="count"></div>
+    </section>
+    <section id="section4" class="section">
+      <h1>Responsive Desing</h1>
+      <div id="youtube"></div>
+    </section>
+    <section id="section5" class="section">
+      <h1>Responsive Tester</h1>
+      <form id="responsive-tester" action="">
+        <input name="url" type="url" placeholder="URL" required />
+        <br />
+        <input name="width" type="number" placeholder="Ancho" required />
+        <br />
+        <input name="height" type="number" placeholder="Alto" required />
+        <br />
+        <input name="test" type="submit" value="test" />
+        <input name="close" type="button" value="close" />
+      </form>
+    </section>
+    <section id="section6" class="section">
+      <h1>Detección de dispositivos UserAgent</h1>
+      <p id="user-agent"></p>
+    </section>
+  </main>
+  <button id="btn-scroll" class="btn-scroll">&#11014;</button>
+  <button id="btn-dark" class="btn-dark">🌚</button>
+  <!--------------- SCRIPTS --------------------->
+  <script src="js/index_dom.js" type="module"></script>
+</body>
+
 </html>
