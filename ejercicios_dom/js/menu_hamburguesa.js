@@ -1,15 +1,22 @@
-export default function showPanel($btnPanel, panel, $option) {
+const toggleClass = function (element, className) {
+  document.querySelector(element).classList.toggle(className);
+};
+const removeClass = function (element, className) {
+  document.querySelector(element).classList.remove(className);
+};
+
+export default function showPanel(btnPanel, panel, option) {
   const doc = document;
 
   doc.addEventListener('click', (e) => {
     const listener = e.target;
 
-    if (listener.matches($btnPanel) || listener.matches(`${$btnPanel} *`)) {
-      doc.querySelector(panel).classList.toggle('is-active');
-      doc.querySelector($btnPanel).classList.toggle('is-active');
-    } else if (listener.matches($option) || listener.matches('.body *')) {
-      doc.querySelector($btnPanel).classList.remove('is-active');
-      doc.querySelector(panel).classList.remove('is-active');
+    if (listener.matches(btnPanel) || listener.matches(`${btnPanel} *`)) {
+      toggleClass(panel, 'is-active');
+      toggleClass(btnPanel, 'is-active');
+    } else if (listener.matches(option) || listener.matches('.body *')) {
+      removeClass(panel, 'is-active');
+      removeClass(btnPanel, 'is-active');
     }
   });
 }

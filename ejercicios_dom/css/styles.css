@@ -70,6 +70,7 @@ img {
   /* transform: translate(0, -100%); */
   transform: translate(-100%, 0);
   visibility: hidden;
+  overflow-y: auto;
 }
 
 .panel.is-active {
@@ -192,13 +193,27 @@ img {
 
 .online,
 .offline {
-  padding: .5rem;
+  padding: 0.5rem;
   font-weight: bold;
   text-align: center;
   background-color: #1b5e20;
   color: #fff;
 }
 
-.offline{
+.offline {
   background-color: #b71c1c;
+}
+
+.element {
+  background-color: darksalmon;
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  color: aliceblue;
+}
+.hidden {
+  display: none;
 }

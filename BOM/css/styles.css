@@ -14,7 +14,7 @@ a {
 }
 
 .card {
-  display: inline-block;
+  display: inline;
   background-color: var(--dark-color);
   color: var(--yellow-color);
   margin: 30px;

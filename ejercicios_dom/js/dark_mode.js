@@ -15,14 +15,9 @@ const darkMode = (btn) => {
 export default function setTheme(btn) {
   document.addEventListener('click', (e) => {
     if (e.target.matches(btn)) {
-      if ($body.classList.contains('body-dark')) {
-        lightMode(btn);
-      } else {
-        darkMode(btn);
-      }
+      $body.classList.contains('body-dark') ? lightMode(btn) : darkMode(btn);
     }
   });
-
   document.addEventListener('DOMContentLoaded', (e) => {
     if (lclst === null) lclst.setItem('theme', 'light');
     if (lclst.getItem('theme') === 'light') lightMode(btn);
