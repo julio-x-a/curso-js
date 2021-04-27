@@ -12,9 +12,6 @@ export function moveBall(e, ball, stage) {
   const $stage = doc.querySelector(stage);
   let limitBall = $ball.getBoundingClientRect();
   let limitStage = $stage.getBoundingClientRect();
-  console.clear();
-  console.log(limitBall, limitStage);
-
   switch (e.keyCode) {
     case LEFT:
       if (limitBall.left > limitStage.left) x--;

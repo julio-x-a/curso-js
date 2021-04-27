@@ -10,6 +10,7 @@ import userDeviceInfo from './user_agent.js';
 import networkStatus from './network_detection.js';
 import webCam from './webcam.js';
 import getGeolocation from './geolocalizacion.js';
+import filter from './filter.js';
 
 const doc = document;
 
@@ -23,6 +24,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   userDeviceInfo('#user-agent');
   webCam('webcam');
   getGeolocation('geolocation');
+  filter('.element', 'input')
   // countdown('count');
 });
 
