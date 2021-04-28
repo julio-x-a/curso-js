@@ -21,7 +21,7 @@ const hiddenElements = ((elements, regexp) => {
 });
 
 const showElements = (elements => {
-    elements.forEach(element =>{
+    elements.forEach(element => {
         element.classList.remove('hidden');
     });
 });

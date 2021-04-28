@@ -11,6 +11,7 @@ import networkStatus from './network_detection.js';
 import webCam from './webcam.js';
 import getGeolocation from './geolocalizacion.js';
 import filter from './filter.js';
+import getWinner from './concurse.js';
 
 const doc = document;
 
@@ -25,6 +26,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   webCam('webcam');
   getGeolocation('geolocation');
   filter('.element', 'input')
+  getWinner('.item', '#btnConcurso')
   // countdown('count');
 });
 
