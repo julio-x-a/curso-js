@@ -213,6 +213,11 @@ img {
   margin-left: auto;
   margin-right: auto;
   color: aliceblue;
+  transition: background-color 0.5s;
+}
+
+.element:hover {
+  background-color: brown;
 }
 .hidden {
   display: none;

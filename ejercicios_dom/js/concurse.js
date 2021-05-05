@@ -1,17 +1,10 @@
 export default function getWinner(id, btn) {
-    const items = document.querySelectorAll(id);
-    let random;
-    document.addEventListener('click', (e) => {
-        if (e.target.matches(btn)) {
-            random = generarNumero(1, items.length);
-            items.forEach(item => {
-                if (parseInt(item.id) === random ){
-                    return alert(`El ganador es: ${item.textContent}`);
-                }
-            })            
-        }
-    });
+  const $items = document.querySelectorAll(id);
+  let random;
+  document.addEventListener('click', (e) => {
+    if (e.target.matches(btn)) {
+      random = Math.floor(Math.random() * $items.length);
+      alert(`El ganador es: ${$items[random].textContent}`);
+    }
+  });
 }
-
-const generarNumero = (min, max) => 
-Math.round(Math.random() * (max - min) + min);
