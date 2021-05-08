@@ -268,6 +268,7 @@ $link = document.querySelector('.eventos-flujo div a');
 //     flujoEvent(e);
 //   }
 // });
+
 document.addEventListener('click', function (e) {
   e.target.matches('.eventos-flujo div')
     ? flujoEvent(e)
