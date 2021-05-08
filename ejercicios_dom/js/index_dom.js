@@ -12,6 +12,7 @@ import webCam from './webcam.js';
 import getGeolocation from './geolocalizacion.js';
 import filter from './filter.js';
 import getWinner from './concurse.js';
+import scrollSpy from './scrollspy.js';
 
 const doc = document;
 
@@ -25,8 +26,9 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   userDeviceInfo('#user-agent');
   webCam('webcam');
   getGeolocation('geolocation');
-  filter('.element', 'input')
-  getWinner('.item', '#btnConcurso')
+  filter('.element', 'input');
+  getWinner('.item', '#btnConcurso');
+  scrollSpy();
   // countdown('count');
 });
 
