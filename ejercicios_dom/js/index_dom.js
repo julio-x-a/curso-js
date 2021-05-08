@@ -13,6 +13,7 @@ import getGeolocation from './geolocalizacion.js';
 import filter from './filter.js';
 import getWinner from './concurse.js';
 import scrollSpy from './scrollspy.js';
+import videoSmart from './video_smart.js';
 
 const doc = document;
 
@@ -29,6 +30,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   filter('.element', 'input');
   getWinner('.item', '#btnConcurso');
   scrollSpy();
+  videoSmart();
   // countdown('count');
 });
 
