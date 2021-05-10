@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 :root {
-  --main-font: sans-serif;
+  --main-font: 'Poppins', sans-serif;
   --font-size: 16px;
   --main-color: #f7df1e;
   --second-color: #222;
@@ -189,6 +191,10 @@ img {
   color: var(--main-color);
 }
 
+.body-dark input {
+  border: 3px solid var(--main-color);
+}
+
 /* <--- Network status ---> */
 
 .online,
@@ -279,4 +285,32 @@ img {
     right: initial;
     left: calc(4.25rem + 1vw);
   }
+}
+
+/* <-- Formulario --> */
+
+.contact-form > * {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.textarea{
+  resize: none;
+}
+
+legend{
+  margin: 20px;
+}
+
+.contact-form [required]:valid{
+  border: thin solid green;
+}
+
+.contact-form [required]:invalid{
+  border: thin solid rgb(228, 65, 65);
 }

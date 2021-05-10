@@ -41,6 +41,7 @@
         <a href="#section10" data-scroll-spy="">Filtro de busqueda</a>
         <a href="#section11" data-scroll-spy="">Concurso</a>
         <a href="#section12" data-scroll-spy="">Video Inteligente</a>
+        <a href="#section13" data-scroll-spy="">Formulario</a>
       </nav>
     </aside>
     <main>
@@ -128,6 +129,46 @@
           loop
           data-smartvideo
         ></video>
+      </section>
+      <section class="section" id="section13" data-scroll-spy>
+        <h2>Formulario</h2>
+        <legend>Envianos tus comentarios</legend><br>
+        <form action="" class="contact-form">
+          <input 
+            type="text"
+            name="name"
+            placeholder="Nombre Completo" 
+            pattern="^[A-Za-zá-üÁ-Û\s]+$" 
+            title="Introduce un nombre válido"
+            required>
+          <input
+            type="email" 
+            name="email"
+            placeholder="Email"
+            pattern="^[a-z0-9]+([\w\.]*[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
+            title="Email incorrecto"
+            required>
+          <input
+            type="text"
+            name="subject"
+            placeholder="Asunto"
+            title="El asunto es requerido" 
+            required>
+          <textarea 
+            name="comments" 
+            class="textarea" 
+            rows="10" 
+            data-pattern="^.{1,255}$"
+            placeholder="Escribe el mensaje" >
+          </textarea>
+          <input type="submit" value="Enviar">
+          <div class="contact-form-loader">
+            <img src="assets/ball-triangle.svg" alt="Cargando">
+          </div>
+          <div class="contact-form-response none">
+            <p>Los datos han sido enviados</p>
+          </div>
+        </form>
       </section>
     </main>
     <button id="btn-scroll" class="btn-scroll">&#11014;</button>
