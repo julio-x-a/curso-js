@@ -1,5 +1,3 @@
-const d = document
-const $form = d.querySelector('.contact-form');
 
 export default  function contactFormValidation() {    
     createElements();    
@@ -45,3 +43,5 @@ function createElements() {
         input.insertAdjacentElement('afterend', $span);
     });   
 }
+const d = document
+const $form = d.querySelector('.contact-form');

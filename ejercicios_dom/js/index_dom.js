@@ -15,6 +15,7 @@ import getWinner from './concurse.js';
 import scrollSpy from './scrollspy.js';
 import videoSmart from './video_smart.js';
 import contactFormValidation from './form.js';
+import narrador from './narrador.js';
 
 const doc = document;
 
@@ -33,6 +34,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   scrollSpy();
   videoSmart();
   contactFormValidation();
+  narrador('.textarea', '#btn-narrator');
   // countdown('count');
 });
 

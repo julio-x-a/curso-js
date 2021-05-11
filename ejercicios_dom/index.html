@@ -42,6 +42,7 @@
         <a href="#section11" data-scroll-spy="">Concurso</a>
         <a href="#section12" data-scroll-spy="">Video Inteligente</a>
         <a href="#section13" data-scroll-spy="">Formulario</a>
+        <a href="#section14" data-scroll-spy="">Narrador de texto</a>
       </nav>
     </aside>
     <main>
@@ -156,7 +157,6 @@
             required>
           <textarea 
             name="comments" 
-            class="textarea"
             rows="10" 
             data-pattern="^.{1,255}$"
             placeholder="Escribe el mensaje"
@@ -171,6 +171,14 @@
             <p>Los datos han sido enviados</p>
           </div>
         </form>
+      </section>
+      <section class="section" id="section14" data-scroll-spy>
+        <h2>Narrador de texto</h2>
+        <select class="select" id="select-voices">
+          <option value="">Option</option>
+        </select>
+        <textarea class="textarea" name="" id="" cols="30" rows="10"></textarea>
+        <button id="btn-narrator" >Escuchar texto</button>
       </section>
     </main>
     <button id="btn-scroll" class="btn-scroll">&#11014;</button>
