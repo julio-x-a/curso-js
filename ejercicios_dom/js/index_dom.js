@@ -14,6 +14,7 @@ import filter from './filter.js';
 import getWinner from './concurse.js';
 import scrollSpy from './scrollspy.js';
 import videoSmart from './video_smart.js';
+import contactFormValidation from './form.js';
 
 const doc = document;
 
@@ -31,6 +32,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   getWinner('.item', '#btnConcurso');
   scrollSpy();
   videoSmart();
+  contactFormValidation();
   // countdown('count');
 });
 

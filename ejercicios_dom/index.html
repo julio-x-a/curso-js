@@ -139,14 +139,14 @@
             name="name"
             placeholder="Nombre Completo" 
             pattern="^[A-Za-zá-üÁ-Û\s]+$" 
-            title="Introduce un nombre válido"
+            title="Introduce un nombre con carácteres válidos"
             required>
           <input
             type="email" 
             name="email"
             placeholder="Email"
             pattern="^[a-z0-9]+([\w\.]*[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
-            title="Email incorrecto"
+            title="Introduce un Email válido"
             required>
           <input
             type="text"
@@ -156,13 +156,15 @@
             required>
           <textarea 
             name="comments" 
-            class="textarea" 
+            class="textarea"
             rows="10" 
             data-pattern="^.{1,255}$"
-            placeholder="Escribe el mensaje" >
+            placeholder="Escribe el mensaje"
+            title="El mensaje no debe superar más de 255 carácteres"
+            required>
           </textarea>
           <input type="submit" value="Enviar">
-          <div class="contact-form-loader">
+          <div class="contact-form-loader none">
             <img src="assets/ball-triangle.svg" alt="Cargando">
           </div>
           <div class="contact-form-response none">
@@ -173,7 +175,7 @@
     </main>
     <button id="btn-scroll" class="btn-scroll">&#11014;</button>
     <button id="btn-dark" class="btn-dark">🌚</button>
-    <!--------------- SCRIPTS --------------------->
+    <!------------------- SCRIPTS --------------------->
     <script src="js/index_dom.js" type="module"></script>
   </body>
 </html>

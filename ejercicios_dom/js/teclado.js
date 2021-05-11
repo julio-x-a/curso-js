@@ -34,7 +34,7 @@ export function moveBall(e, ball, stage) {
 }
 
 export function shortcuts(e) {
-  let key = e.key.toLowerCase();
+  let key = e.key;
 
   switch (key) {
     case 'a':
