@@ -34,7 +34,7 @@ doc.addEventListener('DOMContentLoaded', (e) => {
   scrollSpy();
   videoSmart();
   contactFormValidation();
-  narrador('.textarea', '#btn-narrator');
+  narrador('.textarea', '#btn-narrator', '.select');
   // countdown('count');
 });
 

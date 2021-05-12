@@ -133,39 +133,44 @@
       </section>
       <section class="section" id="section13" data-scroll-spy>
         <h2>Formulario</h2>
-        <legend>Envianos tus comentarios</legend><br>
+        <legend>Envianos tus comentarios</legend>
+        <br />
         <form action="" class="contact-form">
-          <input 
+          <input
             type="text"
             name="name"
-            placeholder="Nombre Completo" 
-            pattern="^[A-Za-zá-üÁ-Û\s]+$" 
+            placeholder="Nombre Completo"
+            pattern="^[A-Za-zá-üÁ-Û\s]+$"
             title="Introduce un nombre con carácteres válidos"
-            required>
+            required
+          />
           <input
-            type="email" 
+            type="email"
             name="email"
             placeholder="Email"
             pattern="^[a-z0-9]+([\w\.]*[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
             title="Introduce un Email válido"
-            required>
+            required
+          />
           <input
             type="text"
             name="subject"
             placeholder="Asunto"
-            title="El asunto es requerido" 
-            required>
-          <textarea 
-            name="comments" 
-            rows="10" 
+            title="El asunto es requerido"
+            required
+          />
+          <textarea
+            name="comments"
+            rows="10"
             data-pattern="^.{1,255}$"
             placeholder="Escribe el mensaje"
             title="El mensaje no debe superar más de 255 carácteres"
-            required>
+            required
+          >
           </textarea>
-          <input type="submit" value="Enviar">
+          <input type="submit" value="Enviar" />
           <div class="contact-form-loader none">
-            <img src="assets/ball-triangle.svg" alt="Cargando">
+            <img src="assets/ball-triangle.svg" alt="Cargando" />
           </div>
           <div class="contact-form-response none">
             <p>Los datos han sido enviados</p>
@@ -174,11 +179,9 @@
       </section>
       <section class="section" id="section14" data-scroll-spy>
         <h2>Narrador de texto</h2>
-        <select class="select" id="select-voices">
-          <option value="">Option</option>
-        </select>
+        <select class="select" id="select-voices"></select>
         <textarea class="textarea" name="" id="" cols="30" rows="10"></textarea>
-        <button id="btn-narrator" >Escuchar texto</button>
+        <button id="btn-narrator">Escuchar texto</button>
       </section>
     </main>
     <button id="btn-scroll" class="btn-scroll">&#11014;</button>
