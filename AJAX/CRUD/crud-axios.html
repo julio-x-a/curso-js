@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>CRUD API REST AXIOS</h1>
+    </header>
+    <section class="crud">
+      <article>
+        <h2 class="crud-title">Add Superhero 🐱‍🏍</h2>
+        <form class="crud-form">
+          <input type="text" name="name" placeholder="Nombre" required />
+          <input type="text" name="type" placeholder="Tipo" required />
+          <input type="submit" value="Enviar" />
+          <input type="hidden" name="action" />
+        </form>
+      </article>
+      <article>
+        <h2>Superheros</h2>
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template id="crud-template">
+      <tr>
+        <td class="name"></td>
+        <td class="type"></td>
+        <td>
+          <button class="edit">Editar</button>
+          <button class="delete">Eliminar</button>
+        </td>
+      </tr>
+    </template>
+    <script>
+      const d = document,
+        $table = d.querySelector('crud-table'),
+        $form = d.querySelector('crud-form'),
+        $title = d.querySelector('crud-title'),
+        $fragment = d.createDocumentFragment();
+    </script>
+  </body>
+</html>

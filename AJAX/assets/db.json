@@ -1,0 +1,66 @@
+{
+  "superheros": [
+    {
+      "id": 1,
+      "name": "Superman",
+      "type": "Kryptonian"
+    },
+    {
+      "id": 2,
+      "name": "Batman",
+      "type": "Human"
+    },
+    {
+      "id": 3,
+      "name": "WonderWoman",
+      "type": "Amazona"
+    },
+    {
+      "id": 4,
+      "name": "Flash",
+      "type": "Metahuman"
+    },
+    {
+      "id": 5,
+      "name": "Green Lantern",
+      "type": "Lantern"
+    },
+    {
+      "id": 6,
+      "name": "Martian Madhunter",
+      "type": "Martian"
+    }
+  ],
+  "villains": [
+    {
+      "id": 1,
+      "name": "Darkseid",
+      "type": "God"
+    },
+    {
+      "id": 2,
+      "name": "Joker",
+      "type": "Unknow"
+    },
+    {
+      "id": 3,
+      "name": "Ares",
+      "type": "God"
+    },
+    {
+      "id": 4,
+      "name": "Reverse Flash",
+      "type": "Metahuman"
+    },
+    {
+      "id": 5,
+      "name": "Sinestro",
+      "type": "Lantern"
+    },
+    {
+      "id": 6,
+      "name": "Doomsday",
+      "type": "Mutan"
+    }
+  ]
+}
