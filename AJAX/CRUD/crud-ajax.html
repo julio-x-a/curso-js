@@ -8,7 +8,7 @@
     <title>Document</title>
   </head>
   <body>
-    <header>
+    <header class="header">
       <h1>CRUD API REST AJAX</h1>
     </header>
     <section class="crud">
@@ -17,13 +17,13 @@
         <form class="crud-form">
           <input type="text" name="name" placeholder="Nombre" required />
           <input type="text" name="type" placeholder="Tipo" required />
-          <input type="submit" value="Enviar" />
-          <input type="hidden" name="action" />
+          <input id="submit-superhero" type="submit" value="Enviar" />
+          <input type="hidden" name="id" />
         </form>
       </article>
       <article>
         <h2>Superheros</h2>
-        <table class="crud-table" cellpading="">
+        <table class="crud-table">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -54,30 +54,80 @@
         $fragment = d.createDocumentFragment(),
         $template = d.getElementById('crud-template').content,
         STATE_OK = (state) => state >= 200 && state < 300;
-        console.log($template);
-        xhr = new XMLHttpRequest()
 
-        // document.addEventListener('submit', (e) => {
-        //   e.preventDefault();
-        //   console.log(e.srcElement.name.value);
-        // });
-        xhr.addEventListener('readystatechange', (e) => {
-          console.log(xhr.readyState);
-          if (xhr.readyState !== 4) return;
-          if (STATE_OK(xhr.status)){
-              let json = JSON.parse(xhr.responseText);
-              json.forEach( (value) => {
-                $template.querySelector('td[class="name"]').textContent = value.name;
-                $template.querySelector('td[class="type"]').textContent = value.type;   
-                let $clone = document.importNode($template, true);
-                $fragment.appendChild($clone);
+        const ajax = (options) => {
+          let {url, method, success, error, data} = options;
+          const xhr = new XMLHttpRequest();
+          xhr.addEventListener('readystatechange', (e) => {
+            if (xhr.readyState !== 4) return;
+              if (STATE_OK(xhr.status)) {
+                let json = JSON.parse(xhr.responseText);
+                success(json);
+              } else {
+                let message = xhr.statusText || "Ocurrió un error";
+                error(`Error: ${xhr.status}: ${message}`);
+              }
+          });
+          xhr.open(method || 'GET', url);
+          xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
+          xhr.send(JSON.stringify(data))
+        }
+        const getAll = () => {
+          ajax({
+            method:"GET",
+            url:"http://localhost:3000/superheros",
+            success: (res) => {
+              res.forEach((value) => {
+                $template.querySelector('.name').textContent = value.name;   
+                $template.querySelector('.type').textContent = value.type;
+                $template.querySelector('.edit').dataset.id = value.id;
+                $template.querySelector('.edit').dataset.name = value.name;
+                $template.querySelector('.edit').dataset.type = value.type;
+                $template.querySelector('.delete').dataset.id = value.id;
+                let $clone = d.importNode($template, true);
+                $fragment.appendChild($clone)   
               });
-             $table.querySelector('tbody').appendChild($fragment);
-          }  
-        }); 
+              $table.querySelector('tbody').appendChild($fragment);   
+            },
+            error: (err) => {
+              $table.insertAdjacentHTML('afterend', `<span>${err}</span>`);
+            },
+            data: null
+          })
+        }
+        d.addEventListener("DOMContentLoaded", getAll());
 
-        xhr.open('GET', 'http://localhost:3000/superheros')
-        xhr.send();
+        // xhr = new XMLHttpRequest()
+        // document.addEventListener('click', (e) => {
+        //   console.log('event');
+        //   if (e.target.matches('#submit-superhero')) {
+        //     // e.preventDefault();
+        //     console.log('in');
+        //     let src = e.srcElement;
+        //     const obj = {name : src.name, type : src.type};
+        //     const json = JSON.stringify(obj);
+        //     xhr.open('POST', 'http://localhost:3000/superheros')
+        //     xhr.send(json);
+        //     console.log('end');
+        //   }
+        // });
+        // xhr.addEventListener('readystatechange', (e) => {
+        //   console.log(xhr.readyState);
+        //   if (xhr.readyState !== 4) return;
+        //   if (STATE_OK(xhr.status)){
+        //       let json = JSON.parse(xhr.responseText);
+        //       json.forEach( (value) => {
+        //         $template.querySelector('td[class="name"]').textContent = value.name;
+        //         $template.querySelector('td[class="type"]').textContent = value.type;   
+        //         let $clone = document.importNode($template, true);
+        //         $fragment.appendChild($clone);
+        //       });
+        //      $table.querySelector('tbody').appendChild($fragment);
+        //   }  
+        // }); 
+
+        // xhr.open('GET', 'http://localhost:3000/superheros')
+        // xhr.send();
     </script>
   </body>
 </html>

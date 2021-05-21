@@ -1,16 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-body {
+body * {
   font-family: 'Poppins';
 }
 
+.header{
+  text-align: center;
+  padding-top: 1px;
+  overflow: hidden;
+}
+
 .crud-form input {
-  display: block;
   padding: 10px;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.crud,
+.crud table {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .crud-table button {
   padding: 10px;
-  font-family: 'Poppins';
 }
+
+ tr {
+  text-align: left;
+}
+
+

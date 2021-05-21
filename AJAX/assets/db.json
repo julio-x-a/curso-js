@@ -26,9 +26,9 @@
       "type": "Lantern"
     },
     {
-      "id": 6,
       "name": "Martian Madhunter",
-      "type": "Martian"
+      "type": "Martian",
+      "id": 6
     }
   ],
   "villains": [
