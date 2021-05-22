@@ -15,8 +15,8 @@
       <article>
         <h2 class="crud-title">Add Superhero 🐱‍🏍</h2>
         <form class="crud-form">
-          <input type="text" name="name" placeholder="Nombre" required />
-          <input type="text" name="type" placeholder="Tipo" required />
+          <input id="name" type="text" name="name" placeholder="Nombre" required />
+          <input id="type" type="text" name="type" placeholder="Tipo" required />
           <input id="submit-superhero" type="submit" value="Enviar" />
           <input type="hidden" name="id" />
         </form>
@@ -52,12 +52,13 @@
         $form = d.querySelector('.crud-form'),
         $title = d.querySelector('.crud-title'),
         $fragment = d.createDocumentFragment(),
-        $template = d.getElementById('crud-template').content,
-        STATE_OK = (state) => state >= 200 && state < 300;
-
+        $template = d.getElementById('crud-template').content
+        
         const ajax = (options) => {
           let {url, method, success, error, data} = options;
           const xhr = new XMLHttpRequest();
+          const STATE_OK = (state) => state >= 200 && state < 300;
+
           xhr.addEventListener('readystatechange', (e) => {
             if (xhr.readyState !== 4) return;
               if (STATE_OK(xhr.status)) {
@@ -75,7 +76,7 @@
         const getAll = () => {
           ajax({
             method:"GET",
-            url:"http://localhost:3000/superheros",
+            url:"",
             success: (res) => {
               res.forEach((value) => {
                 $template.querySelector('.name').textContent = value.name;   
@@ -84,6 +85,7 @@
                 $template.querySelector('.edit').dataset.name = value.name;
                 $template.querySelector('.edit').dataset.type = value.type;
                 $template.querySelector('.delete').dataset.id = value.id;
+                $template.querySelector('.delete').dataset.name = value.name;
                 let $clone = d.importNode($template, true);
                 $fragment.appendChild($clone)   
               });
@@ -96,7 +98,57 @@
           })
         }
         d.addEventListener("DOMContentLoaded", getAll());
+        d.addEventListener("submit", (e) => {
+          if (e.target === $form) {
+            e.preventDefault();
+            if (!e.target.id.value) {
+              ajax({
+                method:"POST",
+                url:"http://localhost:3000/superheros",
+                success: (res) => location.reload(),
+                error: (err) => $form.insertAdjacentHTML('afterend', `<span>${err}</span>`),
+                data: {
+                  name: $form.name.value,
+                  type: $form.type.value
+                }
+              });
+            } else {
+              ajax({
+                method:"PUT",
+                url:`http://localhost:3000/superheros/${e.target.id.value}`,
+                success: (res) => location.reload(),
+                error: (err) => $form.insertAdjacentHTML('afterend', `<span>${err}</span>`),
+                data: {
+                  name: $form.name.value,
+                  type: $form.type.value
+                }
+              });
+              
+            }
+          }
+        });
+        d.addEventListener("click", (e) => {
+          if (e.target.matches('.edit')) {
+            let {id, name, type} = e.target.dataset;
+            $title.textContent = "Edit Superhero"; 
+            $form.name.value = name;
+            $form.type.value = type;
+            $form.id.value = id;
+          } 
 
+          if (e.target.matches('.delete')) {
+            let {id, name} = e.target.dataset;
+            if (confirm(`¿Eliminar a ${name}?`)) {
+              ajax({
+                method:"DELETE",
+                url:`http://localhost:3000/superheros/${id}`,
+                success: (res) => location.reload(),
+                error: (err) => alert(`<span>${err}</span>`)
+              })
+            }
+          }
+        });
+        
         // xhr = new XMLHttpRequest()
         // document.addEventListener('click', (e) => {
         //   console.log('event');
