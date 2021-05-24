@@ -49,64 +49,117 @@
       const d = document,
         $table = d.querySelector('.crud-table'),
         $form = d.querySelector('.crud-form'),
-        $title = d.querySelector('crud-title'),
+        $title = d.querySelector('.crud-title'),
         $fragment = d.createDocumentFragment(),
         $template = d.getElementById('crud-template').content;
 
-        async function getAll(){
-          try {
-            let res = await fetch('http://localhost:3000/superheros');
-            let json = await res.json();
-            if (!res.ok) throw { status: res.status, statusText: res.statusText };
-            json.forEach((value) => {
-                $template.querySelector('.name').textContent = value.name;
-                $template.querySelector('.type').textContent = value.type;
-                $template.querySelector('.edit').dataset.id = value.id;
-                $template.querySelector('.edit').dataset.name = value.name;
-                $template.querySelector('.edit').dataset.type = value.type;
-                $template.querySelector('.delete').dataset.id = value.id;
-                $template.querySelector('.delete').dataset.name = value.name;
-                let $clone = d.importNode($template, true);
-                $fragment.appendChild($clone);   
-              });
-              $table.querySelector('tbody').appendChild($fragment);    
-          } catch (err) {
-             let message = err.statusText || "Ocurrió un error!";
-             $table.insertAdjacentHTML('afterend', `<span>Error: ${err.status}: ${message}</span>`); 
-          }
+      /*<-- Obtener todos los registros -->*/
+      async function getAll() {
+        try {
+          let res = await fetch('http://localhost:3000/superheros');
+          let json = await res.json();
+          if (!res.ok) throw { status: res.status, statusText: res.statusText };
+          json.forEach((value) => {
+            $template.querySelector('.name').textContent = value.name;
+            $template.querySelector('.type').textContent = value.type;
+            $template.querySelector('.edit').dataset.id = value.id;
+            $template.querySelector('.edit').dataset.name = value.name;
+            $template.querySelector('.edit').dataset.type = value.type;
+            $template.querySelector('.delete').dataset.id = value.id;
+            $template.querySelector('.delete').dataset.name = value.name;
+            let $clone = d.importNode($template, true);
+            $fragment.appendChild($clone);
+          });
+          $table.querySelector('tbody').appendChild($fragment);
+        } catch (err) {
+          printError(err, $table);
         }
-
-        const create = async () => {
-          try {
-            const options = {
-              method: 'POST',
-              headers: {'Content Type': 'application/json'},
-              body: JSON.stringify({
+      }
+      /*<-- Crea un nuevo registro -->*/
+      const create = async () => {
+        try {
+          const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify({
               name: $form.name.value,
               type: $form.type.value
-              })
+            })
+          };
+          let res = await fetch('http://localhost:3000/superheros', options);
+          if (!res.ok) throw { status: res.status, statusText: res.statusText };
+          location.reload();
+        } catch (err) {
+          printError(err, $form);
+        }
+      };
+      /*<-- Actualiza un registro -->*/
+      const update = async (id) => {
+        try {
+          const options = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify({
+              name: $form.name.value,
+              type: $form.type.value
+            })
+          };
+          let res = await fetch(`http://localhost:3000/superheros/${id}`, options);
+          if (!res.ok) throw { status: res.status, statusText: res.statusText };
+          location.reload();
+        } catch (err) {
+          printError(err, $table);
+        }
+      };
+      /*<-- Elimina un registro -->*/
+      const deleted = async (id) => {
+        if (confirm('¿Eliminar este registro?')) {
+          try {
+            const options = {
+              method: 'DELETE',
+              headers: { 'content-type': 'application/json; charset=utf-8' }
             };
-            let res = await fetch('http://localhost:3000/superheros', options);
-            console.log(res);
-            
+            let res = await fetch(`http://localhost:3000/superheros/${id}`, options);
+            if (!res.ok) throw { status: res.status, statusText: res.statusText };
+            location.reload();
           } catch (err) {
-             let message = err.statusText || "Ocurrió un error!";
-             $form.insertAdjacentHTML('afterend', `<span>Error: ${err.status}: ${message}</span>`);
+            printError(err);
           }
         }
+      };
+      /*Muestra el error de cualquier petición*/
+      const printError = (err, element) => {
+        let message = err.statusText || 'Ocurrió un error!';
+        if (element) {
+          element.insertAdjacentHTML(
+            'afterend',
+            `<span>Error: ${err.status}: ${message}</span>`
+          );
+        } else {
+          alert(`Error ${err.status}: ${message}`);
+        }
+      };
 
-        d.addEventListener("DOMContentLoaded", getAll());
-        d.addEventListener("submit", (e) => {
+      d.addEventListener('DOMContentLoaded', getAll());
+      d.addEventListener('submit', (e) => {
+        if (e.target === $form) {
           e.preventDefault();
-          if (e.target === $form) {
-            if (!e.target.id.value) {
-              console.log('in');
-              create();
-            }
-          }
-        })
-
-        
+          $form.id.value ? update($form.id.value) : create();
+        }
+      });
+      d.addEventListener('click', (e) => {
+        if (e.target.matches('.edit')) {
+          let { id, name, type } = e.target.dataset;
+          $title.textContent = 'Edit Superhero';
+          $form.name.value = name;
+          $form.type.value = type;
+          $form.id.value = id;
+        }
+        if (e.target.matches('.delete')) {
+          let { id } = e.target.dataset;
+          deleted(id);
+        }
+      });
     </script>
   </body>
 </html>

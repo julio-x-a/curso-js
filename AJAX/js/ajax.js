@@ -30,9 +30,7 @@
   const $fragment = document.createDocumentFragment();
 
   fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) =>
-      response.ok ? response.json() : Promise.reject(response)
-    )
+    .then((response) => (response.ok ? response.json() : Promise.reject(response)))
     .then((json) => {
       json.forEach((user) => {
         const $li = document.createElement('li');
@@ -102,7 +100,7 @@
   const $axiosAsync = document.getElementById('axios-async');
   const $fragment = document.createDocumentFragment();
 
-  async function getData(params) {
+  async function getData() {
     try {
       let res = await axios.get('https://jsonplaceholder.typicode.com/users');
       let json = await res.data;

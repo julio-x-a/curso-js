@@ -26,19 +26,9 @@
       "type": "Lantern"
     },
     {
-      "name": "Martian Madhunter",
-      "type": "Martian",
-      "id": 6
-    },
-    {
       "name": "Aquaman",
       "type": "Atlante",
-      "id": 7
-    },
-    {
-      "name": "Cyborg",
-      "type": "Machine",
-      "id": 9
+      "id": 6
     }
   ],
   "villains": [

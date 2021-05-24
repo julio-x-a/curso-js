@@ -45,12 +45,91 @@
         </td>
       </tr>
     </template>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       const d = document,
-        $table = d.querySelector('crud-table'),
-        $form = d.querySelector('crud-form'),
-        $title = d.querySelector('crud-title'),
+        $table = d.querySelector('.crud-table'),
+        $form = d.querySelector('.crud-form'),
+        $title = d.querySelector('.crud-title'),
+        $template = d.getElementById('crud-template').content,
         $fragment = d.createDocumentFragment();
+
+      /* >-- Petición GET --<*/
+      const getAll = async () => {
+        try {
+          let res = await axios.get('http://localhost:3000/superheros');
+          let json = await res.data;
+          json.forEach((value) => {
+            $template.querySelector('.name').textContent = value.name;
+            $template.querySelector('.type').textContent = value.type;
+            $template.querySelector('.edit').dataset.id = value.id;
+            $template.querySelector('.edit').dataset.name = value.name;
+            $template.querySelector('.edit').dataset.type = value.type;
+            $template.querySelector('.delete').dataset.id = value.id;
+            $template.querySelector('.delete').dataset.name = value.name;
+            let $clone = d.importNode($template, true);
+            $fragment.appendChild($clone);
+          });
+          $table.querySelector('tbody').appendChild($fragment);
+        } catch (err) {
+          printError(err, $table);
+        }
+      };
+      const create = async () => {
+        try {
+          let res = await axios.post('http://localhost:3000/superheros', {
+            name: $form.name.value,
+            type: $form.type.value
+          });
+        } catch (err) {
+          printError(err, $form);
+        }
+      };
+      const edit = async (id) => {
+        try {
+          let res = await axios.put(`http://localhost:3000/superheros/${id}`, {
+            name: $form.name.value,
+            type: $form.type.value
+          });
+        } catch (err) {
+          printError(err, $form);
+        }
+      };
+      const deleted = async (id) => {
+        try {
+          let res = await axios.delete(`http://localhost:3000/superheros/${id}`);
+        } catch (err) {
+          printError(err, $form);
+        }
+      };
+
+      const printError = (err, element) => {
+        let message = err.response.statusText || 'Ocurrió un error!';
+        element
+          ? element.insertAdjacentHTML(
+              'afterend',
+              `<span>Error: ${err.response.status}: ${message}</span>`
+            )
+          : alert(`Error ${err.response.status}: ${message}`);
+      };
+      d.addEventListener('DOMContentLoaded', getAll());
+      d.addEventListener('submit', (e) => {
+        e.preventDefault();
+        $form.id.value ? edit($form.id.value) : create();
+      });
+      d.addEventListener('click', (e) => {
+        if (e.target.matches('.edit')) {
+          let { id, name, type } = e.target.dataset;
+          $title.textContent = 'Edit Superhero';
+          $form.name.value = name;
+          $form.type.value = type;
+          $form.id.value = id;
+        }
+        if (e.target.matches('.delete')) {
+          let { id } = e.target.dataset;
+          deleted(id);
+        }
+      });
     </script>
   </body>
 </html>
