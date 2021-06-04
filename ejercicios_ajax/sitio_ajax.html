@@ -29,7 +29,7 @@
     </footer>
     <script>
       const d = document,
-        $main = d.querySelector("main");
+          $main = d.querySelector("main");
 
       const getHTML = (options) => {
         let { url, success, error } = options;
@@ -57,15 +57,15 @@
         });
       });
       d.addEventListener("click", (e) => {
-          if (e.target.matches('.menu a')) {
-            e.preventDefault();
-            getHTML({
-              url: e.target.getAttribute('href'),
-              success: (html) => ($main.innerHTML = html),
-              error: (err) => ($main.innerHTML = `<h1>${err}</h1>`)
-            })
-          }
-      })
+        if (e.target.matches(".menu a")) {
+          e.preventDefault();
+          getHTML({
+            url: e.target.getAttribute("href"),
+            success: (html) => ($main.innerHTML = html),
+            error: (err) => ($main.innerHTML = `<h1>${err}</h1>`),
+          });
+        }
+      });
     </script>
   </body>
 </html>
