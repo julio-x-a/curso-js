@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      progress {
+        display: block;
+        margin-top: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <main><input type="file" id="files" name="files" multiple /><br /></main>
+    <script>
+      const d = document,
+        $main = d.querySelector('main'),
+        $files = d.getElementById('files');
+
+      const uploader = (file) => {
+        const xhr = new XMLHttpRequest(),
+          formData = new FormData();
+
+        formData.append('file', file);
+        xhr.addEventListener('readystatechange', (e) => {
+          if (xhr.readyState !== 4) return;
+          if (xhr.status >= 200 && xhr.status < 300) {
+            let json = JSON.parse(xhr.responseText);
+            console.log(json);
+          } else {
+            let message = xhr.statusText || 'Ocurrió un error';
+            console.log(`Error ${xhr.status}: ${message}`);
+          }
+        });
+        xhr.open('POST', 'assets/uploader.php');
+        xhr.setRequestHeader('enc-type', 'multipart/form-data');
+        xhr.send(formData);
+      };
+      const progressUpload = (file) => {
+        const $progress = d.createElement('progress'),
+          $span = d.createElement('span'),
+          fileReader = new FileReader();
+        $progress.value = 0;
+        $progress.max = 100;
+        $main.insertAdjacentElement('beforeend', $progress);
+        $main.insertAdjacentElement('beforeend', $span);
+
+        fileReader.readAsDataURL(file);
+        fileReader.addEventListener('progress', (e) => {
+          let progress = parseInt((e.loaded * 100) / e.total);
+          $progress.value = progress;
+          $span.innerHTML = `<li>${file.name} - ${progress}%</li>`;
+        });
+        fileReader.addEventListener('loadend', (e) => {
+          uploader(file);
+          setTimeout(() => {
+            $main.removeChild($span);
+            $main.removeChild($progress);
+            $files.value = '';
+          }, 3000);
+        });
+      };
+      d.addEventListener('change', (e) => {
+        if (e.target === $files) {
+          const files = Array.from(e.target.files);
+          files.forEach((element) => progressUpload(element));
+        }
+      });
+    </script>
+  </body>
+</html>
