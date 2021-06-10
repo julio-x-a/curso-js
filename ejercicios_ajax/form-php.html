@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../ejercicios_dom/css/styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="section">
+      <h2>Formulario</h2>
+      <legend>Envianos tus comentarios</legend>
+      <br />
+      <form class="contact-form">
+        <input
+          type="text"
+          name="name"
+          placeholder="Nombre Completo"
+          pattern="^[A-Za-zá-üÁ-Û\s]+$"
+          title="Introduce un nombre con carácteres válidos"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          pattern="^[a-z0-9]+([\w\.]*[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
+          title="Introduce un Email válido"
+          required
+        />
+        <input
+          type="text"
+          name="subject"
+          placeholder="Asunto"
+          title="El asunto es requerido"
+          required
+        />
+        <textarea
+          name="comments"
+          rows="10"
+          data-pattern="^.{1,255}$"
+          placeholder="Escribe el mensaje"
+          title="El mensaje no debe superar más de 255 carácteres"
+          required
+        >
+        </textarea>
+        <input type="submit" value="Enviar" />
+        <div class="contact-form-loader none">
+          <img
+            src="../ejercicios_dom/assets/ball-triangle.svg"
+            alt="Cargando"
+          />
+        </div>
+        <div class="contact-form-response none">
+          <p>Los datos han sido enviados</p>
+        </div>
+      </form>
+    </section>
+    <script>
+      function contactFormValidation() {
+        createElements();
+        d.addEventListener("keyup", (e) => {
+          if (e.target.matches(".contact-form [required]")) {
+            let $input = e.target,
+              value = $input.value;
+            let pattern = $input.pattern || $input.dataset.pattern;
+
+            if (pattern && value !== "") {
+              return value.match(pattern)
+                ? d.getElementById($input.name).classList.remove("is-active")
+                : d.getElementById($input.name).classList.add("is-active");
+            }
+            if (!pattern) {
+              return value === ""
+                ? d.getElementById($input.name).classList.remove("is-active")
+                : d.getElementById($input.name).classList.remove("is-active");
+            }
+          }
+        });
+      }
+
+      d.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const $loader = d.querySelector(".contact-form-loader");
+        const $response = d.querySelector(".contact-form-response");
+        $loader.classList.remove("none");
+        fetch("assets/send-mail.php", {
+          method: "POST",
+          body: new FormData(e.target),
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+          .then((json) => {
+            console.log(json);
+            $loader.classList.add("none");
+            $response.classList.remove("none");
+            $form.reset();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+
+      function createElements() {
+        const $inputs = d.querySelectorAll(".contact-form [required]");
+
+        $inputs.forEach((input) => {
+          const $span = d.createElement("span");
+          $span.textContent = `* ${input.title}`;
+          $span.id = input.name;
+          $span.classList.add("contact-form-error", "none");
+          input.insertAdjacentElement("afterend", $span);
+        });
+      }
+      const d = document;
+      const $form = d.querySelector(".contact-form");
+      d.addEventListener("DOMContentLoaded", (e) => {
+        contactFormValidation();
+      });
+    </script>
+  </body>
+</html>
