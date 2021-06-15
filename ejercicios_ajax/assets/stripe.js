@@ -17,11 +17,19 @@ Promise.all([
   fetch("https://api.stripe.com/v1/prices", fetchOptions),
 ])
   .then((responses) => Promise.all(responses.map((res) => res.json())))
-  .then(json => {
-      console.log(json)
-    })
-  .catch((err) => {
-      console.log(err);
-      let msg = err.statusText || "Ocurrió un error :(";
-      $coffee.innerHTML = `<p>Error ${err.status}: ${message}`
+  .then((json) => {
+    console.log(json);
   })
+  .catch((err) => {
+    console.log(err);
+    let msg = err.statusText || "Ocurrió un error :(";
+    $coffee.innerHTML = `<p>Error ${err.status}: ${message}</p>`;
+  });
+
+const xhr = new XMLHttpRequest();
+xhr.addEventListener("readystatechange", (e) => {
+  if (xhr.readyState !== 4) return;
+  if (xhr.status >= 200 && xhr.status <= 300) {
+    let res = xhr.responseText;
+  }
+});
