@@ -72,7 +72,7 @@
   getData();
 })();
 
-/** AJAX con la librería axios con PROMESAS*/
+/** AJAX con la librería axios con PROMESAS **/
 (() => {
   const $axios = document.getElementById('axios');
   const $fragment = document.createDocumentFragment();

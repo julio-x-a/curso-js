@@ -15,7 +15,7 @@ let prices, products;
 Promise.all([
   fetch("https://api.stripe.com/v1/products", fetchOptions),
   fetch("https://api.stripe.com/v1/prices", fetchOptions),
-])
+  ])
   .then((responses) => Promise.all(responses.map((res) => res.json())))
   .then((json) => {
     console.log(json);

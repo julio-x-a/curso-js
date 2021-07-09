@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon</title>
+    <style>
+      .loader {
+        display: block;
+        margin: auto;
+      }
+      .none {
+        display: none;
+      }
+      /* .img-pokemon {
+        width: 250px;
+        height: 250px;
+      } */
+    </style>
+  </head>
+  <body>
+    <h1>Pokémons</h1>
+    <nav class="links"></nav>
+    <main class="grid-fluid"></main>
+    <template id="imgPokemon">
+      <img class="img-pokemon" src="" />
+      <!-- <figcaption class="name-pokemon"></figcaption> -->
+    </template>
+    <script>
+      const d = document,
+        $main = d.querySelector('main'),
+        $links = d.querySelector('.links');
+      let pokeAPI = 'https://pokeapi.co/api/v2/pokemon';
+
+      async function loadPokemons(url) {
+        try {
+          const $img = d.createElement('img'),
+            $template = d.getElementById('imgPokemon').content,
+            $fragment = d.createDocumentFragment();
+          $img.setAttribute('src', './assets/ball-triangle.svg');
+          $img.classList.add('loader', 'none');
+          $main.appendChild($img);
+          let res = await fetch(url),
+            json = await res.json(),
+            $templatet = '',
+            $next,
+            $prev;
+          console.log(json);
+          if (!res.ok) throw { status: res.status, statusText: res.statusText };
+          for (let i = 0; i < json.results.length; i++) {
+            try {
+              let res = await fetch(json.results[i].url);
+              pokemon = await res.json();
+              console.log(pokemon);
+              let sprite =
+                pokemon.sprites.versions['generation-v']['black-white'].animated
+                  .front_default;
+              $template.querySelector('.img-pokemon').src = sprite;
+              // $template.querySelector('.name-pokemon').textContent = pokemon.name;
+              let $clone = d.importNode($template, true);
+              $fragment.appendChild($clone);
+            } catch (err) {
+              console.log(err);
+            }
+            $main.appendChild($fragment);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      d.addEventListener('DOMContentLoaded', (e) => loadPokemons(pokeAPI));
+    </script>
+  </body>
+</html>
