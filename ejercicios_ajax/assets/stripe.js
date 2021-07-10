@@ -13,9 +13,15 @@ const d = document,
 let prices, products;
 
 Promise.all([
+<<<<<<< HEAD
   fetch('https://api.stripe.com/v1/products', fetchOptions),
   fetch('https://api.stripe.com/v1/prices', fetchOptions)
 ])
+=======
+  fetch("https://api.stripe.com/v1/products", fetchOptions),
+  fetch("https://api.stripe.com/v1/prices", fetchOptions),
+  ])
+>>>>>>> 0a7352368f97b1250bcb685828c31a9ee3e24219
   .then((responses) => Promise.all(responses.map((res) => res.json())))
   .then((json) => {
     console.log(json);

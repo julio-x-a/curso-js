@@ -31,3 +31,11 @@ function countFs(str, letter) {
 
 // console.log(countFs('FFffFFF', 'F'));
 
+// function f() {
+//   const obj =  {t: "t"};
+//   return obj;
+// }
+
+// const obj2 = f();
+// console.log(obj2);
+
