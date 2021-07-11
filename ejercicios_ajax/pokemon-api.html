@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokémon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <style>
       .loader {
         display: block;
@@ -13,15 +17,15 @@
       .none {
         display: none;
       }
-      /* .img-pokemon {
-        width: 150px;
-        height: 150px;
-      } */
+      .img-pokemon {
+        width: 250px;
+        height: 250px;
+      }
     </style>
   </head>
   <body>
-    <h1>Pokémons</h1>
-    <nav class="links"></nav>
+    <h1 class="" id="title">Pokémons</h1>
+    <nav class="links"><a class="prev">Previus</a><a class="next">Next</a></nav>
     <main class="grid-fluid"></main>
     <template id="imgPokemon">
       <img class="img-pokemon" src="" />
@@ -30,7 +34,9 @@
     <script>
       const d = document,
         $main = d.querySelector('main'),
-        $links = d.querySelector('.links');
+        $links = d.querySelector('.links'),
+        $next = d.querySelector('.next'),
+        $prev = d.querySelector('.prev');
       let pokeAPI = 'https://pokeapi.co/api/v2/pokemon';
 
       async function loadPokemons(url) {
@@ -42,24 +48,20 @@
           $img.classList.add('loader', 'none');
           $main.appendChild($img);
           let res = await fetch(url),
-            json = await res.json(),
-            $templatet = '',
-            $next,
-            $prev;
+            json = await res.json();
           console.log(json);
           if (!res.ok) throw { status: res.status, statusText: res.statusText };
+          addLinks(json.next, json.prev);
           for (let i = 0; i < json.results.length; i++) {
             try {
               let res = await fetch(json.results[i].url);
-              pokemon = await res.json();
-              console.log(pokemon);
-              let sprite =
-                pokemon.sprites.versions['generation-v']['black-white'].animated
-                  .front_default;
+              let pokemon = await res.json();
+              let sprite = pokemon.sprites.other['official-artwork'].front_default;
               $template.querySelector('.img-pokemon').src = sprite;
               // $template.querySelector('.name-pokemon').textContent = pokemon.name;
               let $clone = d.importNode($template, true);
-              $fragment.appendChild($clone);
+              $fragment.append($clone);
+              console.log(pokemon);
             } catch (err) {
               console.log(err);
             }
@@ -69,8 +71,26 @@
           console.log(err);
         }
       }
-
+      function addLinks(...links) {
+        $next.setAttribute('href', links[0]);
+        $prev.setAttribute('href', links[1]);
+      }
+      const $title = d.getElementById('title');
       d.addEventListener('DOMContentLoaded', (e) => loadPokemons(pokeAPI));
+      d.addEventListener('click', (e) => {
+        if (e.target.matches('img')) {
+          e.target.classList.add('animate__animated', 'animate__rubberBand');
+        }
+        e.target.addEventListener('animationend', (e) => {
+          e.target.classList.remove('animate__animated', 'animate__rubberBand');
+        });
+      });
+      d.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (e.target === $next || e.target === $prev) {
+          loadPokemons(e.target.href);
+        }
+      });
     </script>
   </body>
 </html>
