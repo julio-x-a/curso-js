@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .grid-fluid {
+        display: grid;
+        grid-template-columns: repeat (auto-fit, minmax(200px, 1fr));
+      }
+      .loader {
+        display: block;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Shows</h1>
+    <input type="search" id="search" placeholder="Find shows.." />
+    <section id="section-shows" class="grid-fluid"></section>
+    <template id="show-template">
+      <article class="show">
+        <h3></h3>
+        <div></div>
+        <img />
+        <a></a>
+      </article>
+    </template>
+    <script>
+      const d = document,
+        $shows = d.getElementById('section-shows'),
+        $template = d.getElementById('show-template').content,
+        $fragment = d.createDocumentFragment();
+
+      d.addEventListener('keypress', async (e) => {
+        if (e.target.matches('#search')) {
+          if (e.key === 'Enter') {
+            try {
+              $shows.innerHTML = `<img src="./assets/ball-triangle.svg" class="loader">`;
+              let query = e.target.value.toLowerCase();
+              let res = await fetch(`https://api.tvmaze.com/search/shows?q=${query}`);
+              if (!res.ok) throw { status: res.status, statusText: res.statusText };
+              let data = await res.json();
+              console.log(data);
+              addShows(data);
+            } catch (err) {
+              if (err.message) console.log(err.message);
+              console.log(err, err.status, err.statusText);
+            }
+          }
+        }
+      });
+      function addShows(data) {
+        if (data.length === 0) {
+          $shows.innerHTML = '<h3>No shows found<h3>';
+        } else {
+          data.forEach((element) => {
+            let { show } = element;
+            $template.querySelector('h3').textContent = show.name;
+            $template.querySelector('img').src = show.image
+              ? show.image.medium
+              : 'https://static.tvmaze.com/images/no-img/no-img-portrait-text.png';
+            $template.querySelector('div').innerHTML = show.summary;
+            $template.querySelector('a').href = show.url;
+            $template.querySelector('a').textContent = show.name;
+            $clone = d.importNode($template, true);
+            $fragment.append($clone);
+          });
+          $shows.innerHTML = '';
+          $shows.append($fragment);
+        }
+      }
+    </script>
+  </body>
+</html>
