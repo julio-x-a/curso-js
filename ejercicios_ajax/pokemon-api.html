@@ -34,6 +34,8 @@
     <script>
       const d = document,
         $main = d.querySelector('main'),
+        $template = d.getElementById('imgPokemon').content,
+        $fragment = d.createDocumentFragment(),
         $links = d.querySelector('.links'),
         $next = d.querySelector('.next'),
         $prev = d.querySelector('.prev');
@@ -41,9 +43,7 @@
 
       async function loadPokemons(url) {
         try {
-          const $img = d.createElement('img'),
-            $template = d.getElementById('imgPokemon').content,
-            $fragment = d.createDocumentFragment();
+          const $img = d.createElement('img');
           $img.setAttribute('src', './assets/ball-triangle.svg');
           $img.classList.add('loader', 'none');
           $main.appendChild($img);
@@ -52,37 +52,41 @@
           console.log(json);
           if (!res.ok) throw { status: res.status, statusText: res.statusText };
           addLinks(json.next, json.prev);
-          for (let i = 0; i < json.results.length; i++) {
-            try {
-              let res = await fetch(json.results[i].url);
-              let pokemon = await res.json();
-              let sprite = pokemon.sprites.other['official-artwork'].front_default;
-              $template.querySelector('.img-pokemon').src = sprite;
-              // $template.querySelector('.name-pokemon').textContent = pokemon.name;
-              let $clone = d.importNode($template, true);
-              $fragment.append($clone);
-              console.log(pokemon);
-            } catch (err) {
-              console.log(err);
-            }
-            $main.appendChild($fragment);
-          }
+          addPokemon(json);
         } catch (err) {
           console.log(err);
         }
       }
+      async function addPokemon(json) {
+        for (let i = 0; i < json.results.length; i++) {
+          try {
+            let res = await fetch(json.results[i].url);
+            let pokemon = await res.json();
+            let sprite = pokemon.sprites.other['official-artwork'].front_default;
+            $template.querySelector('.img-pokemon').src = sprite;
+            // $template.querySelector('.name-pokemon').textContent = pokemon.name;
+            let $clone = d.importNode($template, true);
+            $fragment.append($clone);
+            console.log(pokemon);
+          } catch (err) {
+            console.log(err);
+          }
+          $main.appendChild($fragment);
+        }
+      }
+
       function addLinks(...links) {
         $next.setAttribute('href', links[0]);
         $prev.setAttribute('href', links[1]);
       }
       const $title = d.getElementById('title');
       d.addEventListener('DOMContentLoaded', (e) => loadPokemons(pokeAPI));
-      d.addEventListener('click', (e) => {
+      d.addEventListener('mouseover', (e) => {
         if (e.target.matches('img')) {
-          e.target.classList.add('animate__animated', 'animate__rubberBand');
+          e.target.classList.add('animate__animated', 'animate__rotateIn');
         }
         e.target.addEventListener('animationend', (e) => {
-          e.target.classList.remove('animate__animated', 'animate__rubberBand');
+          e.target.classList.remove('animate__animated', 'animate__rotateIn');
         });
       });
       d.addEventListener('click', (e) => {
