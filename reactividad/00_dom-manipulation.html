@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Manipulación manual del DOM</h1>
+    <form id="todoForm">
+      <input type="text" id="todoItem" placeholder="Tarea" />
+      <input type="submit" value="Agregar" />
+    </form>
+    <h2>Lista de tareas</h2>
+    <ul id="todoList"></ul>
+    <script>
+      const d = document,
+        $ul = d.getElementById('todoList'),
+        $item = d.getElementById('todoItem');
+
+      d.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.target.matches('#todoForm') && $item.value) {
+          let $li = d.createElement('li');
+          $li.textContent = $item.value;
+          $ul.appendChild($li);
+        }
+      });
+    </script>
+  </body>
+</html>
