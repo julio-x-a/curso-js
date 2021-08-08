@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Reactividad del estado</h1>
+    <form id="todoForm">
+      <input type="text" id="todoItem" placeholder="Tarea" />
+      <input type="submit" value="Agregar" />
+    </form>
+    <h2>Lista de tareas</h2>
+    <ul id="todoList"></ul>
+
+    <script>
+      const d = document,
+        state = {
+          todoList: []
+        };
+
+      //Template
+      const template = () => {
+        if (state.todoList.length < 1) return `<p><em>Sin tareas<em>😎</p>`;
+        return state.todoList.map((item) => `<li>${item}</li>`).join('');
+      };
+
+      //Render
+      const render = () => {
+        console.log(state);
+        const $list = d.getElementById('todoList');
+        if (!$list) return;
+        $list.innerHTML = template();
+      };
+
+      //Actualizar el State de forma reactiva
+      const setState = (obj) => {
+        for (const key in obj) {
+          if (state.hasOwnProperty(key)) {
+            state[key] = obj[key];
+          }
+        }
+        render();
+      };
+
+      d.addEventListener('DOMContentLoaded', render);
+      //Estableciendo valores por defecto al State
+      setState({
+        todoList: ['Tarea 1', 'Tarea 2']
+      });
+
+      d.addEventListener('submit', (e) => {
+        if (!e.target.matches('#todoForm')) return false;
+        e.preventDefault();
+        const $item = d.getElementById('todoItem');
+        if (!$item || !$item.value) return;
+        //Actualizar el State y la UI
+        state.todoList.push($item.value);
+        render();
+      });
+    </script>
+  </body>
+</html>

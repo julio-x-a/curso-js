@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Librería de componentes con estado</h1>
+    <form id="todoForm">
+      <input type="text" id="todoItem" placeholder="Tarea" />
+      <input type="submit" value="Agregar" />
+    </form>
+    <h2>Lista de tareas</h2>
+    <ul id="todoList"></ul>
+    <script src="Component.js"></script>
+
+    <script>
+      const d = document;
+      const app = new Component({
+        el: '#todoList',
+        data: {
+          todoList: []
+        },
+        template: function (props) {
+          if (props.todoList.length < 1) return `<p><em>Sin tareas<em>😎</p>`;
+          return props.todoList.map((item) => `<li>${item}</li>`).join('');
+        }
+      });
+
+      d.addEventListener('DOMContentLoaded', app.render);
+      //Estableciendo valores por defecto al State
+      app.setState({
+        todoList: ['Tarea 1', 'Tarea 2']
+      });
+
+      d.addEventListener('submit', (e) => {
+        if (!e.target.matches('#todoForm')) return false;
+        e.preventDefault();
+        const $item = d.getElementById('todoItem');
+        if (!$item || !$item.value) return;
+        //Actualizar el State y la UI
+        const lastState = app.getState();
+        lastState.todoList.push($item.value);
+        app.setState({
+          todoList: lastState.todoList
+        });
+      });
+    </script>
+  </body>
+</html>
